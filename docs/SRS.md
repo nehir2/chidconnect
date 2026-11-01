@@ -2,7 +2,7 @@
 
 **Team name:** ChildConnect
 **Version:** ☒ First version (draft) ☐ Final (Week 10)
-**Last updated:** 2026-10-24
+**Last updated:** 2026-11-01
 
 ---
 
@@ -163,3 +163,4 @@ Priority: **Must** (required for v1.0) / **Should** (planned) / **Could** (if ti
 |---|---|---|
 | 2026-10-24 | First version (draft): introduction, scope, NFRs, critical flows | Nehir Arseven |
 | 2026-10-24 | Converted to course template; tech stack aligned with assignment (SQLite, Gemini/GitHub Models); testable requirements for M1–M8 added | Sıla Yıldız |
+| 2026-11-01 | Walking skeleton (v0.0) implemented: React (Vite) frontend, Express backend, SQLite database and seed script, `GET /api/tasks`; page lists the seeded task end-to-end. FR-M4-xx reviewed against this slice and confirmed testable with priorities; FR-M4-04/06/07 (read-only listing) are the only M4 requirements this slice touches — create/assign, validation, status updates and role-based access (FR-M4-01/02/03/05) are not yet built. FR-M8-xx left as-is for the M8 sprint. | Yiğit Zümbüloğlu |
