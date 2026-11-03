@@ -35,23 +35,25 @@
 
 | Epic | Owner | Number of tasks | Planned sprint(s) |
 |---|---|---|---|
-| M1 | | | |
-| M2 | | | |
-| M3 | | | |
-| M4 | | | |
-| M5 | | | |
-| M6 | | | |
-| M7 | | | |
-| M8 | | | |
+| M1 – Login and roles | Sıla Yıldız | 0 | Sprint 2 |
+| M2 – Linking specialists | Sıla Yıldız | 0 | Sprint 2 |
+| M3 – Weekly schedule | Nehir Arseven | 0 | Sprint 2 |
+| M4 – Tasks | Yiğit Zümbüloğlu | 5 | Sprint 1 (walking skeleton), Sprint 2 |
+| M5 – Specialist entries | Nehir Arseven | 0 | Sprint 3 |
+| M6 – Documents | Nehir Arseven | 0 | Sprint 3 |
+| M7 – Weekly statistics | Sıla Yıldız | 0 | Sprint 3 |
+| M8 – Role-based AI summary | Yiğit Zümbüloğlu | 1 | Sprint 1 (AI module skeleton), Sprint 3 |
+
+Number of tasks is the count in Jira on 2026-11-03. The development tasks of M1–M3 and M4 are created at the Sprint 2 planning, and those of M5–M8 at the Sprint 3 planning; this table is updated in the progress reviews (PMP-3, PMP-4). Documentation work is tracked under two additional epics, SRS and DESIGN.
 
 ### Sprint Plan
 
 | Sprint | Weeks | Sprint goal | Ends with |
 |---|---|---|---|
-| Sprint 1 | | | Walking skeleton (v0.0), Week 6 |
-| Sprint 2 | | | Release v0.1, mid-term |
-| Sprint 3 | | | Release v0.2, Week 10 |
-| Sprint 4 | | | Release v1.0, final |
+| Sprint 1 | Weeks 3–6 (14.10 – 08.11.2026) | Jira and repository set up; SRS and SDD first version; PMP-1 and PMP-2; walking skeleton with a first test in CI | Walking skeleton (v0.0), Week 6 |
+| Sprint 2 | Weeks 7–8/9 | M1–M4: login and roles, linking specialists, weekly schedule, tasks; first end-to-end test running in CI | Release v0.1, mid-term |
+| Sprint 3 | Weeks 9–10 | M5–M8: specialist entries, documents, weekly statistics, AI summary with mock mode; end-to-end tests for the 3 critical flows; SRS and SDD final | Release v0.2, Week 10 |
+| Sprint 4 | Weeks 11–12 | Fixes and polishing, an end-to-end test for each of M1–M8, final report, PMP-5 and PMP-6 | Release v1.0, final |
 
 ---
 

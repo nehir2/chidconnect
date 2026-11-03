@@ -2,7 +2,7 @@
 
 **Team name:** ChildConnect  
 **Version:** ☒ First version (Week 6) ☐ Final (Week 10)  
-**Last updated:** 2026-11-01
+**Last updated:** 2026-11-03
 
 ---
 
@@ -32,17 +32,17 @@ flowchart LR
 
 ## 2. Module Design
 
-M1, M2 and M7 are added by Sıla (SCRUM-24); M4 and M8 by Yiğit (SCRUM-36).
+M4 and M8 are added by Yiğit (SCRUM-36).
 
 | Module | Main components | Implements requirements |
 |---|---|---|
-| M1 | _(Sıla, SCRUM-24)_ | FR-M1-01 … FR-M1-07 |
-| M2 | _(Sıla, SCRUM-24)_ | FR-M2-01 … FR-M2-07 |
+| M1 | **Frontend:** `LoginPage` (email and password, error message), `AuthContext` (keeps the JWT, logout), `RoleRoute` (sends each role to its own screens: parent dashboard, specialist's children list, child's task screen). **Backend:** `authRouter` (`POST /auth/login`, `GET /auth/me`), `authService` (bcrypt password check, signs a JWT with an expiry time), `requireAuth` middleware (invalid or missing token → HTTP 401), `requireRole` middleware (wrong role → HTTP 403). **Data:** `USER` table. | FR-M1-01 … FR-M1-07 |
+| M2 | **Frontend:** `LinkedSpecialistsPage` (list of linked specialists, link form with email and specialist type, unlink with confirmation, error for an unregistered email), `MyChildrenPage` (specialist's list of linked children). **Backend:** `linksRouter` (`GET /children/:id/specialists`, `POST /children/:id/specialists`, `DELETE /children/:id/specialists/:specialistId`, `GET /me/children`), `linksService` (checks that the email belongs to a registered specialist, prevents duplicate links), `requireLinkedAccess` middleware (shared by M3–M8: reads the current `SPECIALIST_LINK` row on every request, so an unlinked specialist gets HTTP 403 even with a valid JWT). **Data:** `SPECIALIST_LINK` table. | FR-M2-01 … FR-M2-07 |
 | M3 | **Frontend:** `WeeklySchedulePage` (weekly view, previous/next week), `EventForm` (title, date, start and end time, validation). **Backend:** `eventsRouter` (`GET /children/:id/events?week=`, `POST /children/:id/events`, `PUT /events/:id`, `DELETE /events/:id`), `eventsService` (Monday–Sunday week range, validation), `requireLinkedAccess` middleware (parent, linked specialist or the child). **Data:** `EVENT` table. | FR-M3-01 … FR-M3-06 |
 | M4 | _(Yiğit, SCRUM-36)_ | FR-M4-01 … FR-M4-07 |
 | M5 | **Frontend:** `EntryForm` (date, text), `EntryList` (shows the "edited" mark), used on the specialist's child profile and on the parent's dashboard. **Backend:** `entriesRouter` (`GET /children/:id/entries`, `POST /children/:id/entries`, `PUT /entries/:id`), `entriesService` (sets `edited` and `updated_at` on every change; only the author can edit), `denyChild` middleware (child requests get HTTP 403). **Data:** `ENTRY` table. | FR-M5-01 … FR-M5-05 |
 | M6 | **Frontend:** `DocumentUpload` (file picker, type and size check), `DocumentList` (name, type, uploader, date, view/download). **Backend:** `documentsRouter` (`POST /children/:id/documents`, `GET /children/:id/documents`, `GET /documents/:id/download`), `upload` middleware (multer: PDF/JPEG/PNG only, 10 MB limit), `denyChild` middleware. Files are stored in `server/uploads/` under generated names and are served only through the download endpoint after the access check. **Data:** `DOCUMENT` table. | FR-M6-01 … FR-M6-05 |
-| M7 | _(Sıla, SCRUM-24)_ | FR-M7-01 … FR-M7-05 |
+| M7 | **Frontend:** `WeeklyStatsCard` (week picker, total completion rate, rate per development area, "No tasks this week"), shown on the parent dashboard and the specialist's child profile. **Backend:** `statsRouter` (`GET /children/:id/stats?week=`), `statsService` (pure function: completed tasks ÷ tasks due in the week, in total and per area; unit tested), `requireLinkedAccess` and `denyChild` middleware. **Data:** reads the `TASK` table; no new table. | FR-M7-01 … FR-M7-05 |
 | M8 | _(Yiğit, SCRUM-36)_ | FR-M8-01 … FR-M8-08 |
 
 ---
@@ -184,3 +184,4 @@ _To be completed by Yiğit (SCRUM-36): one sequence diagram for each of the 3 cr
 | Date | Change | By |
 |---|---|---|
 | 2026-11-01 | First version: SDD file opened, ER diagram, UI screen list, M3/M5/M6 module rows | Nehir |
+| 2026-11-03 | M1/M2/M7 module rows | Sıla |
