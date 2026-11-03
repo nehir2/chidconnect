@@ -28,3 +28,13 @@ Start the backend first, then the frontend, and open http://localhost:5173 —
 it should list the seeded task. The frontend calls the backend at
 `http://localhost:4000` by default; override with a `VITE_API_URL` env var if
 the backend runs on a different host/port.
+
+### Tests
+
+```bash
+cd backend
+npm test        # Jest + Supertest, uses an in-memory database
+```
+
+The same tests run automatically in GitHub Actions on every push and pull request
+(see `.github/workflows/ci.yml`), together with a build of the frontend.
