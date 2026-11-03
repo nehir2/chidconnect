@@ -5,9 +5,12 @@ import Database from 'better-sqlite3'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const dataDir = join(__dirname, '..', 'data')
-mkdirSync(dataDir, { recursive: true })
 
-export const db = new Database(join(dataDir, 'chidconnect.sqlite'))
+// DB_PATH lets tests use an in-memory database (DB_PATH=:memory:).
+const dbPath = process.env.DB_PATH || join(dataDir, 'chidconnect.sqlite')
+if (dbPath !== ':memory:') mkdirSync(dirname(dbPath), { recursive: true })
+
+export const db = new Database(dbPath)
 
 db.exec(`
   CREATE TABLE IF NOT EXISTS tasks (
