@@ -15,7 +15,7 @@
 |---|---|
 | **Date** | 19.10.2026 |
 | **Format** | in person |
-| **Dev team** | Sıla Yıldız, Nehir Arseven, Yiğit Zümbüloğlu |
+| **Team** | Sıla Yıldız, Nehir Arseven, Yiğit Zümbüloğlu |
 
 
 ### Agenda
@@ -42,7 +42,7 @@
 |---|---|
 | **Date** | 26.10.2026|
 | **Format** |  in person  |
-| **Dev team** | Sıla Yıldız, Nehir Arseven, Yiğit Zümbüloğlu |
+| **Team** | Sıla Yıldız, Nehir Arseven, Yiğit Zümbüloğlu |
 
 
 ### Agenda
