@@ -35,3 +35,15 @@ db.exec(`
     status TEXT NOT NULL DEFAULT 'pending'
   )
 `)
+
+// M2: a specialist can see a child's data only while a link row exists (FR-M2-06).
+db.exec(`
+  CREATE TABLE IF NOT EXISTS specialist_links (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    child_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    specialist_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    specialist_type TEXT NOT NULL,
+    created_at TEXT NOT NULL DEFAULT (datetime('now')),
+    UNIQUE (child_id, specialist_id)
+  )
+`)
