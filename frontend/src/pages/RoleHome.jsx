@@ -1,24 +1,52 @@
+import LinkedSpecialists from './LinkedSpecialists.jsx'
 import TaskList from './TaskList.jsx'
+import { useMyChildren } from './useMyChildren.js'
 
 // Each role gets its own home screen (FR-M1-07).
-// Parent and specialist screens are filled in by M2 (linking) and M3 (tasks).
+// M2 adds linked specialists (parent) and linked children (specialist).
 
 export function ParentHome({ user, token }) {
+  const { children, loading, error } = useMyChildren(token)
   return (
     <section data-testid="parent-home">
       <p className="subtitle">Parent dashboard</p>
-      <p>Welcome, {user.name}. Your children and their weekly plan will appear here.</p>
+      <p>Welcome, {user.name}.</p>
+
+      {loading && <p>Loading…</p>}
+      {error && <p className="error">{error}</p>}
+      {children.map((child) => (
+        <LinkedSpecialists key={child.id} child={child} token={token} />
+      ))}
+
       <h2 className="section-title">Tasks</h2>
       <TaskList token={token} />
     </section>
   )
 }
 
-export function SpecialistHome({ user }) {
+export function SpecialistHome({ user, token }) {
+  const { children, loading, error } = useMyChildren(token)
   return (
     <section data-testid="specialist-home">
       <p className="subtitle">Specialist home</p>
-      <p>Welcome, {user.name}. The children linked to you will appear here.</p>
+      <p>Welcome, {user.name}.</p>
+
+      <h2 className="section-title">My children</h2>
+      {loading && <p>Loading…</p>}
+      {error && <p className="error">{error}</p>}
+      {!loading && !error && children.length === 0 && (
+        <p>You are not linked to any child yet. A parent can link you with your email.</p>
+      )}
+      {children.length > 0 && (
+        <ul className="plain-list" data-testid="my-children">
+          {children.map((child) => (
+            <li key={child.id} className="list-row panel">
+              <strong>{child.name}</strong>
+              <span className="muted">{child.type}</span>
+            </li>
+          ))}
+        </ul>
+      )}
     </section>
   )
 }
