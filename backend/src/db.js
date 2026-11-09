@@ -12,6 +12,19 @@ if (dbPath !== ':memory:') mkdirSync(dirname(dbPath), { recursive: true })
 
 export const db = new Database(dbPath)
 
+db.pragma('foreign_keys = ON')
+
+db.exec(`
+  CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL UNIQUE,
+    password_hash TEXT NOT NULL,
+    role TEXT NOT NULL CHECK (role IN ('parent', 'specialist', 'child')),
+    parent_id INTEGER REFERENCES users(id)
+  )
+`)
+
 db.exec(`
   CREATE TABLE IF NOT EXISTS tasks (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
