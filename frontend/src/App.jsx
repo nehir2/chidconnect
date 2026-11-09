@@ -1,61 +1,79 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000'
+import { apiFetch, loadToken, saveToken } from './api.js'
+import LoginPage from './pages/LoginPage.jsx'
+import { RoleHome } from './pages/RoleHome.jsx'
 
 function App() {
-  const [tasks, setTasks] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+  const [token, setToken] = useState(() => loadToken())
+  const [user, setUser] = useState(null)
+  const [checking, setChecking] = useState(() => Boolean(loadToken()))
 
+  // On page load, restore the session from the stored token.
   useEffect(() => {
+    if (!token || user) return
     let cancelled = false
 
-    fetch(`${API_URL}/api/tasks`)
-      .then((res) => {
-        if (!res.ok) throw new Error(`Request failed with status ${res.status}`)
-        return res.json()
-      })
+    apiFetch('/api/auth/me', { token })
       .then((data) => {
-        if (!cancelled) setTasks(data)
+        if (!cancelled) setUser(data.user)
       })
-      .catch((err) => {
-        if (!cancelled) setError(err.message)
+      .catch(() => {
+        // expired or invalid token → back to the login page
+        if (!cancelled) {
+          saveToken(null)
+          setToken(null)
+        }
       })
       .finally(() => {
-        if (!cancelled) setLoading(false)
+        if (!cancelled) setChecking(false)
       })
 
     return () => {
       cancelled = true
     }
-  }, [])
+  }, [token, user])
+
+  async function handleLogin(email, password) {
+    const data = await apiFetch('/api/auth/login', {
+      method: 'POST',
+      body: JSON.stringify({ email, password }),
+    })
+    saveToken(data.token)
+    setToken(data.token)
+    setUser(data.user)
+  }
+
+  function handleLogout() {
+    saveToken(null)
+    setToken(null)
+    setUser(null)
+  }
+
+  if (checking) {
+    return (
+      <main className="page">
+        <p>Loading…</p>
+      </main>
+    )
+  }
+
+  if (!token || !user) {
+    return <LoginPage onLogin={handleLogin} />
+  }
 
   return (
     <main className="page">
-      <h1>ChildConnect</h1>
-      <p className="subtitle">Tasks</p>
-
-      {loading && <p>Loading tasks…</p>}
-      {error && <p className="error">Could not load tasks: {error}</p>}
-      {!loading && !error && tasks.length === 0 && <p>No tasks yet.</p>}
-
-      {!loading && !error && tasks.length > 0 && (
-        <ul className="task-list">
-          {tasks.map((task) => (
-            <li key={task.id} className="task-card">
-              <div className="task-card-header">
-                <h2>{task.title}</h2>
-                <span className={`status status-${task.status}`}>{task.status}</span>
-              </div>
-              {task.description && <p className="task-description">{task.description}</p>}
-              <p className="task-meta">
-                {task.development_area} · due {task.due_date}
-              </p>
-            </li>
-          ))}
-        </ul>
-      )}
+      <header className="app-header">
+        <h1>ChildConnect</h1>
+        <div className="user-box">
+          <span className="role-badge">{user.role}</span>
+          <button type="button" className="link-button" onClick={handleLogout}>
+            Log out
+          </button>
+        </div>
+      </header>
+      <RoleHome user={user} token={token} />
     </main>
   )
 }
