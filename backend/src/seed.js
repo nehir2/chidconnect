@@ -40,9 +40,11 @@ db.prepare(
 ).run(child.id, specialist.id, 'psychologist')
 
 db.prepare(
-  `INSERT INTO tasks (title, description, development_area, due_date, status)
-   VALUES (?, ?, ?, ?, ?)`,
+  `INSERT INTO tasks (child_id, assigned_by, title, description, development_area, due_date, status)
+   VALUES (?, ?, ?, ?, ?, ?, ?)`,
 ).run(
+  child.id,
+  specialist.id,
   'Practice counting to 20',
   'Count out loud together twice a day.',
   'Cognitive',

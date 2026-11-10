@@ -25,14 +25,19 @@ db.exec(`
   )
 `)
 
+// M4: child_id scopes a task to one child (FR-M4-04, FR-M4-07); assigned_by
+// records who assigned it, for the assigner's own status list (FR-M4-06).
 db.exec(`
   CREATE TABLE IF NOT EXISTS tasks (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
+    child_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    assigned_by INTEGER NOT NULL REFERENCES users(id),
     title TEXT NOT NULL,
     description TEXT,
     development_area TEXT NOT NULL,
     due_date TEXT NOT NULL,
-    status TEXT NOT NULL DEFAULT 'pending'
+    status TEXT NOT NULL DEFAULT 'pending',
+    done_at TEXT
   )
 `)
 

@@ -1,9 +1,25 @@
+import { useState } from 'react'
+import AssignedTasks from './AssignedTasks.jsx'
+import AssignTaskForm from './AssignTaskForm.jsx'
 import LinkedSpecialists from './LinkedSpecialists.jsx'
 import TaskList from './TaskList.jsx'
 import { useMyChildren } from './useMyChildren.js'
 
 // Each role gets its own home screen (FR-M1-07).
 // M2 adds linked specialists (parent) and linked children (specialist).
+// M4 adds task assignment, the child's own task list, and the assigner's status list.
+
+// One child's task list plus the form to assign them a new task.
+function ChildTasks({ child, token }) {
+  const [refreshKey, setRefreshKey] = useState(0)
+  return (
+    <div className="panel">
+      <h3>Tasks for {child.name}</h3>
+      <TaskList key={refreshKey} childId={child.id} token={token} />
+      <AssignTaskForm childId={child.id} token={token} onAssigned={() => setRefreshKey((k) => k + 1)} />
+    </div>
+  )
+}
 
 export function ParentHome({ user, token }) {
   const { children, loading, error } = useMyChildren(token)
@@ -19,7 +35,12 @@ export function ParentHome({ user, token }) {
       ))}
 
       <h2 className="section-title">Tasks</h2>
-      <TaskList token={token} />
+      {children.map((child) => (
+        <ChildTasks key={child.id} child={child} token={token} />
+      ))}
+
+      <h2 className="section-title">Tasks I've assigned</h2>
+      <AssignedTasks token={token} />
     </section>
   )
 }
@@ -47,6 +68,14 @@ export function SpecialistHome({ user, token }) {
           ))}
         </ul>
       )}
+
+      <h2 className="section-title">Tasks</h2>
+      {children.map((child) => (
+        <ChildTasks key={child.id} child={child} token={token} />
+      ))}
+
+      <h2 className="section-title">Tasks I've assigned</h2>
+      <AssignedTasks token={token} />
     </section>
   )
 }
@@ -56,7 +85,7 @@ export function ChildHome({ user, token }) {
     <section data-testid="child-home">
       <p className="subtitle">My tasks</p>
       <p>Hi {user.name}! Here is what to do this week.</p>
-      <TaskList token={token} />
+      <TaskList childId={user.id} token={token} canComplete />
     </section>
   )
 }
