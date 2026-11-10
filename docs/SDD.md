@@ -306,3 +306,4 @@ sequenceDiagram
 | 2026-11-01 | First version: SDD file opened, ER diagram, UI screen list, M3/M5/M6 module rows | Nehir |
 | 2026-11-03 | M1/M2/M7 module rows | Sıla |
 | 2026-11-10 | Architecture overview (Section 1); M4 and M8 module rows (Section 2); full API table for M1–M8 (Section 4); sequence diagrams for the 3 critical flows (Section 5) | Yiğit |
+| 2026-11-10 | M4 implemented end to end (backend, frontend, tests) matching the Section 2 design. M8: `aiService` (`backend/src/ai.js`) implemented with its mock mode, per-role prompts and the safety instruction, matching the Section 2 row; the AI provider (Gemini API vs GitHub Models) is still undecided, so `aiRouter` and the real provider call are not built yet | Yiğit |

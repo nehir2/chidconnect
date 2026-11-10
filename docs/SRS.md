@@ -2,7 +2,7 @@
 
 **Team name:** ChildConnect
 **Version:** ☒ First version (draft) ☐ Final (Week 10)
-**Last updated:** 2026-11-01
+**Last updated:** 2026-11-10
 
 ---
 
@@ -164,3 +164,4 @@ Priority: **Must** (required for v1.0) / **Should** (planned) / **Could** (if ti
 | 2026-10-24 | First version (draft): introduction, scope, NFRs, critical flows | Nehir Arseven |
 | 2026-10-24 | Converted to course template; tech stack aligned with assignment (SQLite, Gemini/GitHub Models); testable requirements for M1–M8 added | Sıla Yıldız |
 | 2026-11-01 | Walking skeleton (v0.0) implemented: React (Vite) frontend, Express backend, SQLite database and seed script, `GET /api/tasks`; page lists the seeded task end-to-end. FR-M4-xx reviewed against this slice and confirmed testable with priorities; FR-M4-04/06/07 (read-only listing) are the only M4 requirements this slice touches — create/assign, validation, status updates and role-based access (FR-M4-01/02/03/05) are not yet built. FR-M8-xx left as-is for the M8 sprint. | Yiğit Zümbüloğlu |
+| 2026-11-10 | M4 fully implemented (assign, child marks done, assigner's status list, parent sees all tasks) with tests, satisfying FR-M4-01 … FR-M4-07. M8: single backend AI module (`backend/src/ai.js`) added with a mock mode used by tests and CI (FR-M8-06), per-role prompts (FR-M8-02), the "AI-generated" label with source-record links (FR-M8-04) and the no-diagnosis/no-treatment instruction (FR-M8-05); the real provider call (C-2: Gemini API vs GitHub Models) is not chosen yet and is stubbed to fail gracefully (FR-M8-07) until it is. The `/api/children/:id/ai-summary` endpoint itself (FR-M8-01) is deferred until M3/M5 exist to supply real records. | Yiğit Zümbüloğlu |
