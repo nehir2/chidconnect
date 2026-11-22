@@ -3,13 +3,12 @@ import AssignedTasks from './AssignedTasks.jsx'
 import AssignTaskForm from './AssignTaskForm.jsx'
 import LinkedSpecialists from './LinkedSpecialists.jsx'
 import TaskList from './TaskList.jsx'
+import WeeklySchedule from './WeeklySchedule.jsx'
 import { useMyChildren } from './useMyChildren.js'
-import WeeklyStatsCard from './WeeklyStatsCard.jsx'
 
 // Each role gets its own home screen (FR-M1-07).
 // M2 adds linked specialists (parent) and linked children (specialist).
-// M4 adds task assignment, the child's own task list, and the assigner's status list.
-// M7 adds the weekly statistics card (parent and specialist only, never the child).
+// M3 adds the weekly schedule; M4 adds task assignment, the child's own task list, and the assigner's status list.
 
 // One child's task list plus the form to assign them a new task.
 function ChildTasks({ child, token }) {
@@ -19,6 +18,16 @@ function ChildTasks({ child, token }) {
       <h3>Tasks for {child.name}</h3>
       <TaskList key={refreshKey} childId={child.id} token={token} />
       <AssignTaskForm childId={child.id} token={token} onAssigned={() => setRefreshKey((k) => k + 1)} />
+    </div>
+  )
+}
+
+// One child's weekly schedule; the parent and linked specialists can add events (M3).
+function ChildSchedule({ child, user, token }) {
+  return (
+    <div className="panel">
+      <h3>Weekly schedule for {child.name}</h3>
+      <WeeklySchedule childId={child.id} token={token} userId={user.id} canEdit />
     </div>
   )
 }
@@ -33,10 +42,12 @@ export function ParentHome({ user, token }) {
       {loading && <p>Loading…</p>}
       {error && <p className="error">{error}</p>}
       {children.map((child) => (
-        <WeeklyStatsCard key={child.id} child={child} token={token} />
-      ))}
-      {children.map((child) => (
         <LinkedSpecialists key={child.id} child={child} token={token} />
+      ))}
+
+      <h2 className="section-title">Weekly schedule</h2>
+      {children.map((child) => (
+        <ChildSchedule key={child.id} child={child} user={user} token={token} />
       ))}
 
       <h2 className="section-title">Tasks</h2>
@@ -73,8 +84,10 @@ export function SpecialistHome({ user, token }) {
           ))}
         </ul>
       )}
+
+      <h2 className="section-title">Weekly schedule</h2>
       {children.map((child) => (
-        <WeeklyStatsCard key={child.id} child={child} token={token} />
+        <ChildSchedule key={child.id} child={child} user={user} token={token} />
       ))}
 
       <h2 className="section-title">Tasks</h2>
@@ -93,6 +106,9 @@ export function ChildHome({ user, token }) {
     <section data-testid="child-home">
       <p className="subtitle">My tasks</p>
       <p>Hi {user.name}! Here is what to do this week.</p>
+      <h2 className="section-title">My week</h2>
+      <WeeklySchedule childId={user.id} token={token} userId={user.id} />
+      <h2 className="section-title">My tasks</h2>
       <TaskList childId={user.id} token={token} canComplete />
     </section>
   )
