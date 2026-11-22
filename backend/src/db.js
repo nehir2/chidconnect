@@ -52,3 +52,17 @@ db.exec(`
     UNIQUE (child_id, specialist_id)
   )
 `)
+
+// M3: an event belongs to one child; created_by is who added it, so only that
+// person can edit or delete it (FR-M3-06).
+db.exec(`
+  CREATE TABLE IF NOT EXISTS events (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    child_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    created_by INTEGER NOT NULL REFERENCES users(id),
+    title TEXT NOT NULL,
+    event_date TEXT NOT NULL,
+    start_time TEXT NOT NULL,
+    end_time TEXT NOT NULL
+  )
+`)
