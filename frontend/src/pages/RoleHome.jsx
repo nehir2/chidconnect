@@ -5,10 +5,12 @@ import LinkedSpecialists from './LinkedSpecialists.jsx'
 import TaskList from './TaskList.jsx'
 import WeeklySchedule from './WeeklySchedule.jsx'
 import { useMyChildren } from './useMyChildren.js'
+import WeeklyStatsCard from './WeeklyStatsCard.jsx'
 
 // Each role gets its own home screen (FR-M1-07).
 // M2 adds linked specialists (parent) and linked children (specialist).
 // M3 adds the weekly schedule; M4 adds task assignment, the child's own task list, and the assigner's status list.
+// M7 adds the weekly statistics card (parent and specialist only, never the child).
 
 // One child's task list plus the form to assign them a new task.
 function ChildTasks({ child, token }) {
@@ -41,6 +43,9 @@ export function ParentHome({ user, token }) {
 
       {loading && <p>Loading…</p>}
       {error && <p className="error">{error}</p>}
+      {children.map((child) => (
+        <WeeklyStatsCard key={child.id} child={child} token={token} />
+      ))}
       {children.map((child) => (
         <LinkedSpecialists key={child.id} child={child} token={token} />
       ))}
@@ -84,6 +89,9 @@ export function SpecialistHome({ user, token }) {
           ))}
         </ul>
       )}
+      {children.map((child) => (
+        <WeeklyStatsCard key={child.id} child={child} token={token} />
+      ))}
 
       <h2 className="section-title">Weekly schedule</h2>
       {children.map((child) => (
