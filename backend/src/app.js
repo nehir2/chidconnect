@@ -3,6 +3,7 @@ import express from 'express'
 import { authRouter } from './routes/auth.js'
 import { eventsRouter } from './routes/events.js'
 import { linksRouter } from './routes/links.js'
+import { statsRouter } from './routes/stats.js'
 import { tasksRouter } from './routes/tasks.js'
 
 // The Express app is defined here without app.listen(),
@@ -15,3 +16,4 @@ app.use('/api/auth', authRouter)
 app.use('/api', linksRouter)
 app.use('/api', tasksRouter)
 app.use('/api', eventsRouter)
+app.use('/api', statsRouter)

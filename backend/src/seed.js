@@ -65,5 +65,22 @@ const insertEvent = db.prepare(
 insertEvent.run(child.id, parent.id, 'Speech therapy', day(0), '10:00', '11:00')
 insertEvent.run(child.id, specialist.id, 'Doctor appointment', day(4), '09:30', '10:30')
 
-console.log('Seeded 4 users (parent, child, 2 specialists), 1 specialist link, 1 task and 2 events.')
+// A few tasks in the current week, so the weekly statistics (M7) have something to show.
+const insertTask = db.prepare(
+  `INSERT INTO tasks (child_id, assigned_by, title, description, development_area, due_date, status)
+   VALUES (?, ?, ?, ?, ?, ?, ?)`,
+)
+const weekTasks = [
+  ['Read for 20 minutes', 'Language', 1, 'done'],
+  ['Name ten animals', 'Language', 3, 'pending'],
+  ['Tie shoelaces alone', 'Self-care', 2, 'done'],
+  ['Play a board game with a friend', 'Social', 4, 'pending'],
+]
+for (const [title, area, offset, status] of weekTasks) {
+  insertTask.run(child.id, specialist.id, title, null, area, day(offset), status)
+}
+
+console.log(
+  `Seeded 4 users (parent, child, 2 specialists), 1 specialist link, ${1 + weekTasks.length} tasks and 2 events.`,
+)
 console.log(`Demo password for all users: ${SEED_PASSWORD}`)
