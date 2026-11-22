@@ -266,6 +266,61 @@
   background: #b42318;
 }
 
+.stats-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.stats-header h3 {
+  margin: 0;
+}
+
+.week-picker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rate-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.rate-label {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 15px;
+  color: var(--text-h);
+}
+
+.rate-track {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--accent-bg);
+  overflow: hidden;
+}
+
+.rate-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.rate-areas {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
 /* M3: weekly schedule */
 .week-nav {
   display: flex;
