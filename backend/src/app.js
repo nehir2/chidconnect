@@ -1,6 +1,7 @@
 import cors from 'cors'
 import express from 'express'
 import { authRouter } from './routes/auth.js'
+import { eventsRouter } from './routes/events.js'
 import { linksRouter } from './routes/links.js'
 import { tasksRouter } from './routes/tasks.js'
 
@@ -13,3 +14,4 @@ app.use(express.json())
 app.use('/api/auth', authRouter)
 app.use('/api', linksRouter)
 app.use('/api', tasksRouter)
+app.use('/api', eventsRouter)
