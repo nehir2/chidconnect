@@ -266,57 +266,40 @@
   background: #b42318;
 }
 
-.stats-header {
+/* M3: weekly schedule */
+.week-nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  flex-wrap: wrap;
-  margin-bottom: 12px;
+  margin: 8px 0 12px;
 }
 
-.stats-header h3 {
-  margin: 0;
-}
-
-.week-picker {
-  display: flex;
-  align-items: center;
+.week-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
   gap: 8px;
 }
 
-.rate-row {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+.week-day {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px;
+  min-height: 80px;
 }
 
-.rate-label {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  font-size: 15px;
+.week-day h5 {
+  margin: 0 0 6px;
   color: var(--text-h);
 }
 
-.rate-track {
-  height: 8px;
-  border-radius: 999px;
-  background: var(--accent-bg);
-  overflow: hidden;
-}
-
-.rate-fill {
-  height: 100%;
-  border-radius: 999px;
-  background: var(--accent);
-}
-
-.rate-areas {
+.event {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-top: 16px;
-  padding-top: 12px;
-  border-top: 1px solid var(--border);
+  gap: 2px;
+  margin-bottom: 6px;
+  padding: 4px 6px;
+  border-radius: 4px;
+  background: var(--accent-bg);
+  color: var(--text-h);
 }
