@@ -60,13 +60,27 @@ Number of tasks is the count in Jira on 2026-11-03. The development tasks of M1�
 ## PMP-3. Progress Review: Mid-term (v0.1)
 
 **Jira board screenshot:**
-
+ 
+<img width="3024" height="1964" alt="image" src="https://github.com/user-attachments/assets/631356d8-24ea-43c1-b171-35c4ac294916" />
 | Epic | Planned for this point | Status (Done / In progress / Not started) |
 |---|---|---|
-| | | |
-
+| M1 – Login and roles | Done (Sprint 2) | Done: users, login API and auth middleware (SCRUM-40), login page and role routing (SCRUM-42) |
+| M2 – Linking specialists | Done (Sprint 2) | Done: linking, unlinking, listing and the linked-access check (SCRUM-44) |
+| M3 – Weekly schedule | Done (Sprint 2) | Done: events table and API (SCRUM-48), weekly view with previous and next week (SCRUM-49), child read-only view (SCRUM-50), tests (SCRUM-51) |
+| M4 – Tasks | Done (Sprint 2) | Done: assigning a task, child marks it done, assigner's and parent's task lists, with tests (SCRUM-54 to SCRUM-57) |
+| M5 – Specialist entries | Sprint 3 | Not started |
+| M6 – Documents | Sprint 3 | Not started |
+| M7 – Weekly statistics | Sprint 3 | Done: weekly completion rate in total and per development area (SCRUM-16), pulled forward from Sprint 3 |
+| M8 – Role-based AI summary | AI module skeleton (Sprint 1), rest in Sprint 3 | In progress: AI module with mock mode, per-role prompts and tests (SCRUM-38); the summary endpoint and the real provider call are not built yet |
+| SRS and DESIGN (documents) | First versions (Sprint 1) | Done: first versions of the SRS and the SDD; both are updated as modules are built |
+| First end-to-end test in CI | Sprint 2 | Done: Playwright tests for the weekly schedule run in GitHub Actions (SCRUM-52) |
+ 
 **Changes to the plan (if any):**
-
+ 
+- M3 and the first Playwright test were planned for Week 7 and were completed on 22 November, at the end of Week 8.
+- M7 (weekly statistics) was pulled forward from Sprint 3 and is already done.
+- The AI provider (Gemini API or GitHub Models) is not chosen yet. The decision is made at the Sprint 3 planning; until then the AI module runs in mock mode.
+- Release v0.1 was tagged on 22 November, before the M3 weekly schedule page and the first end-to-end test were merged. Both are included in the next release.
 ---
 
 ## PMP-4. Progress Review: v0.2
